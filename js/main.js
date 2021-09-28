@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 
+
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  if (min > max) {
+  const minCeil = Math.ceil(min);
+  const maxFloor = Math.floor(max);
+  if (minCeil > maxFloor) {
     return null;
   }
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
 };
 getRandomInt(1, 10);
 
