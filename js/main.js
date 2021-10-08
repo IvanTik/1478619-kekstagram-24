@@ -21,6 +21,7 @@ function stringLenght(string, maxlength) {
 stringLenght('Hello', 7);
 
 // console.log(stringLenght('Hello', 7));
+
 const id = [getRandomInt(1, 25)];
 
 const description = [
@@ -34,7 +35,7 @@ const likes = (getRandomInt(15, 200));
 
 const names = [
   'Иван',
-  'Виктор',
+  'Марк',
   'Евгений',
   'Мария',
   'Ангелина',
@@ -42,7 +43,7 @@ const names = [
   'Вера',
 ];
 
-const avatar = [
+const avatars = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
   'img/avatar-3.svg',
@@ -51,7 +52,7 @@ const avatar = [
   'img/avatar-6.svg',
 ];
 
-const message = [
+const messages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -60,17 +61,18 @@ const message = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const createObject = () => {
-  const idComment = (getRandomInt(1, 250));
-  const avatarComment = _.random(0, avatar.length - 1);
-  const messageComment = _.random(0, message.length - 1);
-  const namesComment = _.random(0, names.length - 1);
-  return {
-    id: (getRandomInt(1, 250)),
-    avatar: avatar[avatarComment],
-    message: message[messageComment],
-    name: names[namesComment],
-  };
-};
+const createPhoto = () => ({
+  id: (getRandomInt(1, 250)),
+  avatar: avatars[_.random(0, avatars.length - 1)],
+  message: messages[_.random(0, messages.length - 1)],
+  name: names[_.random(0, names.length - 1)],
+});
 
-console.log(createObject());
+
+// const photos = [];
+// for (let i = 0; i < amount; i++) {
+//   photos.push(createPhoto(i));
+// }
+
+
+console.log(createPhoto());
