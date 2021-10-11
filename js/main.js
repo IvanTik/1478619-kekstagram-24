@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-
 const getRandomInt = (min, max) => {
   const minCeil = Math.ceil(min);
   const maxFloor = Math.floor(max);
@@ -22,16 +21,12 @@ stringLenght('Hello', 7);
 
 // console.log(stringLenght('Hello', 7));
 
-const id = [getRandomInt(1, 25)];
-
 const description = [
   'Весело',
   'Осень',
   'На учебе',
   'скучно',
 ];
-
-const likes = (getRandomInt(15, 200));
 
 const names = [
   'Иван',
@@ -43,8 +38,6 @@ const names = [
   'Вера',
 ];
 
-const getRandomNames = (array) => getRandomInt(0, names.length - 1);
-
 const avatars = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
@@ -53,9 +46,6 @@ const avatars = [
   'img/avatar-5.svg',
   'img/avatar-6.svg',
 ];
-
-const generateAvatars = (index) => `img/avatar-${getRandomInt(1 , avatars.length )}.svg`;
-generateAvatars();
 
 const messages = [
   'Всё отлично!',
@@ -66,24 +56,35 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const getRandomMessages = (array) => getRandomInt(0, messages.length - 1);
+const getArrayPart = (array) => array[getRandomInt(0, array.length - 1)];
 
-const createComments = (index) => ({
-  id: getRandomInt(1, 250),
-  avatar: generateAvatars(),
-  message: messages[getRandomMessages()],
-  name: names[getRandomNames()],
+const getRandomMessage = () => getArrayPart(messages);
+
+const getRandomName = () => getArrayPart(names);
+
+const getRandomIndex = () => getRandomInt(1, 25);
+
+const getRandomComment = () => ({
+  id: getRandomIndex(),
+  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomMessage(),
+  name: getRandomName(),
 });
 
-const createPhotos = () => {
-  const photos = [];
-  const amount = 25;
-  // eslint-disable-next-line id-length
-  for (let i = 0; i < amount + 1; i++) {
-    photos.push(createComments(i));
-  }
-  return photos;
-};
-createPhotos();
+console.log(getRandomComment());
 
-console.log(createComments());
+const getRandomComments = () => Array.from({length: getRandomInt(1, 3)}, (value, index) => getRandomComment(index));
+
+const getRandomLikes = () => getRandomInt(15, 250);
+
+const getRandomDescription = () => getArrayPart(description);
+
+const getRandomPhoto = () => ({
+  id: getRandomIndex(), // случайное число от 1-25 (index)
+  url: `photos/${getRandomInt(1, 25)}.jpg`,
+  description: getRandomDescription(),
+  likes: getRandomLikes(),
+  comments: getRandomComments(),
+});
+
+console.log(getRandomPhoto());
