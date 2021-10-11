@@ -43,6 +43,8 @@ const names = [
   'Вера',
 ];
 
+const getRandomNames = (array) => getRandomInt(0, names.length - 1);
+
 const avatars = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
@@ -51,6 +53,9 @@ const avatars = [
   'img/avatar-5.svg',
   'img/avatar-6.svg',
 ];
+
+const generateAvatars = (index) => `img/avatar-${getRandomInt(1 , avatars.length )}.svg`;
+generateAvatars();
 
 const messages = [
   'Всё отлично!',
@@ -61,18 +66,24 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const createPhoto = () => ({
-  id: (getRandomInt(1, 250)),
-  avatar: avatars[_.random(0, avatars.length - 1)],
-  message: messages[_.random(0, messages.length - 1)],
-  name: names[_.random(0, names.length - 1)],
+const getRandomMessages = (array) => getRandomInt(0, messages.length - 1);
+
+const createComments = (index) => ({
+  id: getRandomInt(1, 250),
+  avatar: generateAvatars(),
+  message: messages[getRandomMessages()],
+  name: names[getRandomNames()],
 });
 
+const createPhotos = () => {
+  const photos = [];
+  const amount = 25;
+  // eslint-disable-next-line id-length
+  for (let i = 0; i < amount + 1; i++) {
+    photos.push(createComments(i));
+  }
+  return photos;
+};
+createPhotos();
 
-// const photos = [];
-// for (let i = 0; i < amount; i++) {
-//   photos.push(createPhoto(i));
-// }
-
-
-console.log(createPhoto());
+console.log(createComments());
