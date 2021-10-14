@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+import {getRandomInt} from './get-random-integer';
 
-const getRandomInt = (min, max) => {
-  const minCeil = Math.ceil(min);
-  const maxFloor = Math.floor(max);
-  if (minCeil > maxFloor) {
-    return null;
-  }
+// const getRandomInt = (min, max) => {
+//   const minCeil = Math.ceil(min);
+//   const maxFloor = Math.floor(max);
+//   if (minCeil > maxFloor) {
+//     return null;
+//   }
 
-  return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
-};
-getRandomInt(1, 10);
+//   return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
+// };
+// getRandomInt(1, 10);
 
 // console.log(getRandomInt(1, 10));
 
@@ -60,13 +61,15 @@ const getArrayPart = (array) => array[getRandomInt(0, array.length - 1)];
 
 const getRandomMessage = () => getArrayPart(messages);
 
+const getRandomAvatar = () => getArrayPart(avatars);
+
 const getRandomName = () => getArrayPart(names);
 
 const getRandomIndex = () => getRandomInt(1, 25);
 
 const getRandomComment = () => ({
   id: getRandomIndex(),
-  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  avatar: getRandomAvatar(),
   message: getRandomMessage(),
   name: getRandomName(),
 });
