@@ -9,4 +9,11 @@ const getRandomInt = (min, max) => {
 };
 getRandomInt(1, 10);
 
+function stringLenght(string, maxlength) {
+  return (string.length < maxlength);
+}
+stringLenght('Hello', 7);
+
+// console.log(stringLenght('Hello', 7));
+
 export {getRandomInt};
