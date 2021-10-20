@@ -1,4 +1,6 @@
 // eslint-disable-next-line no-unused-vars
+import {getRandomPhotos} from './data.js';
+
 const fragment = document.createDocumentFragment();
 
 const similarPicture = document.querySelector('#picture')
@@ -17,7 +19,6 @@ const renderPicture = function (picture) {
   return pictureItem;
 };
 
-// eslint-disable-next-line no-unused-vars
 const addPictures = function (picturesArr) {
   for (let i = 0; i < picturesArr.length; i++) {
     fragment.appendChild(renderPicture(picturesArr[i], i));
@@ -25,3 +26,7 @@ const addPictures = function (picturesArr) {
 
   pictureList.appendChild(fragment);
 };
+
+addPictures(getRandomPhotos());
+
+export {addPictures};
