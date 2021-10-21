@@ -67,4 +67,6 @@ const getRandomPhoto = () => ({
   comments: getRandomComments(),
 });
 
-export {getRandomComment, getRandomPhoto};
+const getRandomPhotos = () => Array.from({length: getRandomInt(5, 20)}, (value, index) => getRandomPhoto(index));
+
+export {getRandomComment, getRandomPhoto, getRandomPhotos};
