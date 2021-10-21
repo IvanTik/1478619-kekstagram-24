@@ -14,6 +14,8 @@ function stringLenght(string, maxlength) {
 }
 stringLenght('Hello', 7);
 
-// console.log(stringLenght('Hello', 7));
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInt};
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export {getRandomInt, isEscapeKey, isEnterKey};
