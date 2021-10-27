@@ -1,13 +1,13 @@
 import { getRandomInt } from './utils.js';
 
-const description = [
+const COMMENT_DESCRIPTIONS = [
   'Весело',
   'Осень',
   'На учебе',
   'скучно',
 ];
 
-const names = [
+const COMMENT_AUTHORS = [
   'Иван',
   'Марк',
   'Евгений',
@@ -17,7 +17,7 @@ const names = [
   'Вера',
 ];
 
-const avatars = [
+const COMMENT_AVATARS = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
   'img/avatar-3.svg',
@@ -26,7 +26,7 @@ const avatars = [
   'img/avatar-6.svg',
 ];
 
-const messages = [
+const COMMENT_SUGGESTIONS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -37,15 +37,15 @@ const messages = [
 
 const getArrayPart = (array) => array[getRandomInt(0, array.length - 1)];
 
-const getRandomMessage = () => getArrayPart(messages);
+const getRandomMessage = () => getArrayPart(COMMENT_SUGGESTIONS);
 
-const getRandomAvatar = () => getArrayPart(avatars);
+const getRandomAvatar = () => getArrayPart(COMMENT_AVATARS);
 
-const getRandomName = () => getArrayPart(names);
+const getRandomName = () => getArrayPart(COMMENT_AUTHORS);
 
 const getRandomIndex = () => getRandomInt(1, 25);
 
-const getRandomDescription = () => getArrayPart(description);
+const getRandomDescription = () => getArrayPart(COMMENT_DESCRIPTIONS);
 
 const getRandomLikes = () => getRandomInt(15, 250);
 

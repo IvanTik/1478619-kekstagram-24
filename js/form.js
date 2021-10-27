@@ -1,12 +1,18 @@
 /* eslint-disable no-unused-vars */
-import { isEscapeKey, isEnterKey} from './utils.js';
+import {
+  isEscapeKey,
+  isEnterKey
+} from './utils.js';
 
 const MAX_CHARACTERS = 20;
 const MAX_TAGS = 5;
+
+const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
 const uploadPopup = form.querySelector('.img-upload__overlay');
 const closeButtonUpload = uploadPopup.querySelector('#upload-cancel');
-const imagePreview = uploadPopup.querySelector('.img-upload__preview-photo');
+const uploadButton = form.querySelector('#upload-file');
+const hashtagText = uploadPopup.querySelector('.text__hashtags');
 
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -24,10 +30,10 @@ const onPopupEnterKeydown = (evt) => {
   }
 };
 
-const openUploadPopup = function () {
-  uploadPopup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
-};
+// const openUploadPopup = function () {
+//   uploadPopup.classList.remove('hidden');
+//   document.addEventListener('keydown', onPopupEscKeydown);
+// };
 
 const closeUploadPopup = function () {
   uploadPopup.classList.add('hidden');
@@ -36,11 +42,19 @@ const closeUploadPopup = function () {
 
 closeButtonUpload.addEventListener('click', () => {
   closeUploadPopup(onPopupEnterKeydown);
+  body.classList.remove('modal-open');
 });
 
-//Для будущих #
-const showTagError = function (hashTags) {
-  for (let i = 0; i < hashTags.length; i++){
+uploadButton.addEventListener('click', (evt) => {
+  uploadPopup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscKeydown);
+  body.classList.add('modal-open');
+  evt.preventDefault();
+});
+
+// Для будущих #
+const validateHashtags = function (hashTags) {
+  for (let i = 0; i < hashTags.length; i++) {
     if (hashTags[i].indexOf('#') !== 0) {
       return 'Начните ваш хэштег с символа "#"';
     } else if (hashTags[i].length === 1) {
@@ -58,4 +72,6 @@ const showTagError = function (hashTags) {
   return '';
 };
 
-export {openUploadPopup};
+export {
+  uploadButton
+};

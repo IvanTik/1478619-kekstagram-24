@@ -18,4 +18,10 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-export {getRandomInt, isEscapeKey, isEnterKey};
+const addBodyModalOpen = () => document.querySelector('body').classList.add('modal-open');
+
+const removeBodyModalOpen = () => document.querySelector('body').classList.remove('modal-open');
+
+const maxNumOfHashtags = 5;
+
+export {getRandomInt, isEscapeKey, isEnterKey, addBodyModalOpen, removeBodyModalOpen, maxNumOfHashtags};

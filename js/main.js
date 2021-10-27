@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
 import {getRandomComment, getRandomPhoto, getRandomPhotos} from './data.js';
 import { addPictures } from './render-picture.js';
-import {openUploadPopup} from './form.js';
+import {uploadButton} from './form.js';
+import {createMiniature} from './gallery.js';
 
-openUploadPopup();
+uploadButton;
+
+createMiniature(getRandomPhotos());
 
 addPictures(getRandomPhotos());
 
