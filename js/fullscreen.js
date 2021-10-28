@@ -1,4 +1,8 @@
-import { maxNumOfHashtags, addBodyModalOpen, isEscapeKey } from './utils.js';
+import {
+  maxNumOfHashtags,
+  addBodyModalOpen,
+  isEscapeKey
+} from './utils.js';
 
 const commentFragmentSize = 5;
 const fullImgSize = 35;
@@ -45,15 +49,14 @@ const showFullScreen = (photo) => {
   }
 
   let commentsDistributed = 0;
-  for (let fragment = 0; fragment < Math.ceil(photo.comments.length/commentFragmentSize); fragment++) {
+  for (let fragment = 0; fragment < Math.ceil(photo.comments.length / commentFragmentSize); fragment++) {
     const commentFragment = [];
     if ((commentFragmentSize + commentsDistributed) > photo.comments.length) {
       for (let comment = commentsDistributed; comment < photo.comments.length; comment++) {
         commentFragment.push(photo.comments[comment]);
       }
       arrayOfCommentArrays.push(commentFragment);
-    }
-    else {
+    } else {
       for (let comment = commentsDistributed; comment < (commentFragmentSize + commentsDistributed); comment++) {
         commentFragment.push(photo.comments[comment]);
       }
@@ -62,7 +65,7 @@ const showFullScreen = (photo) => {
     commentsDistributed += commentFragmentSize;
   }
 
-  let fragmentsUsed= 1;
+  let fragmentsUsed = 1;
   commentsLoader.addEventListener('click', () => {
     const currentFragment = arrayOfCommentArrays[fragmentsUsed];
     for (let com = 0; com < currentFragment.length; com++) {
@@ -99,4 +102,6 @@ const showFullScreen = (photo) => {
   });
 };
 
-export {showFullScreen};
+export {
+  showFullScreen
+};

@@ -14,6 +14,9 @@ const createMiniature = (photos) => {
       showFullScreen(photoElement);
     });
     pictureFragment.appendChild(photoElement);
+    pictureContainer.addEventListener('click', (evt) =>{
+      showFullScreen(evt.target);
+    });
   });
   return pictureContainer.appendChild(pictureFragment);
 };
