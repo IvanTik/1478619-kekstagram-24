@@ -22,6 +22,4 @@ const addBodyModalOpen = () => document.querySelector('body').classList.add('mod
 
 const removeBodyModalOpen = () => document.querySelector('body').classList.remove('modal-open');
 
-const maxNumOfHashtags = 5;
-
-export {getRandomInt, isEscapeKey, isEnterKey, addBodyModalOpen, removeBodyModalOpen, maxNumOfHashtags};
+export {getRandomInt, isEscapeKey, isEnterKey, addBodyModalOpen, removeBodyModalOpen};

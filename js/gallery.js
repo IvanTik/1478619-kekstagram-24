@@ -1,4 +1,6 @@
-import {showFullScreen} from './fullscreen.js';
+import {
+  showFullScreen
+} from './fullscreen.js';
 
 const createMiniature = (photos) => {
   const pictureTemplate = document.querySelector('#picture').content;
@@ -14,11 +16,15 @@ const createMiniature = (photos) => {
       showFullScreen(photoElement);
     });
     pictureFragment.appendChild(photoElement);
-    pictureContainer.addEventListener('click', () =>{
-      showFullScreen(photoElement);
-    });
+  });
+  pictureContainer.addEventListener('click', (evt) => {
+    if (evt.target.classList[0] === 'picture__img') {
+      showFullScreen();
+    }
   });
   return pictureContainer.appendChild(pictureFragment);
 };
 
-export {createMiniature};
+export {
+  createMiniature
+};
