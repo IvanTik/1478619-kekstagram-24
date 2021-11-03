@@ -49,7 +49,6 @@ const getRandomDescription = () => getArrayPart(COMMENT_DESCRIPTIONS);
 
 const getRandomLikes = () => getRandomInt(15, 250);
 
-
 const getRandomComment = () => ({
   id: getRandomIndex(),
   avatar: getRandomAvatar(),

@@ -14,8 +14,6 @@ import {
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImgContainer = bigPicture.querySelector('.big-picture__img');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
-const bigPictureImg = bigPictureImgContainer.querySelector('img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const bigPictureCommentsCount = socialCommentCount.querySelector('.comments-count');
@@ -25,6 +23,7 @@ const commentsItemText = socialCommentsList.querySelector('.social__text');
 const bigImgDescription = bigPicture.querySelector('.social__caption');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentsList = bigPicture.querySelector('.social__comments');
+const showMoreCommentsButton = bigPicture.querySelector('.social__comments-loader');
 
 const clearCommentsList = () => {
   commentsList.innerHTML = '';
@@ -33,7 +32,7 @@ const clearCommentsList = () => {
 const createComments = () => {
   const createPictureFragment = document.createDocumentFragment();
 
-  for (let commentI = 0; commentI < 5; commentI++) {
+  for (let i = 0; i < 5; i++) {
     commentsItemImg.src = `photos/${getRandomInt(1, 25)}.jpg`;
     commentsItemImg.alt = getRandomName();
     commentsItemText.textContent = getRandomMessage();
@@ -43,12 +42,11 @@ const createComments = () => {
   }
 };
 
-const showFullScreen = () => {
+const showFullScreen = (target) => {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
+  bigPictureImgContainer.replaceChild(target, bigPictureImgContainer.childNodes[1]);
   socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-  bigPictureImg.src = `photos/${getRandomInt(1, 25)}.jpg`;
   bigPictureLikes.textContent = getRandomLikes(15, 200);
   bigPictureCommentsCount.textContent = getRandomComments(1, 500);
   commentsItemImg.src = getRandomAvatar();
@@ -58,7 +56,9 @@ const showFullScreen = () => {
   createComments();
 };
 
-showFullScreen();
+showMoreCommentsButton.addEventListener('click', () => {
+  createComments();
+});
 
 bigPictureCancel.addEventListener('click', () => {
   body.classList.remove('modal-open');
