@@ -1,5 +1,6 @@
-// eslint-disable-next-line no-unused-vars
-import {getRandomPhotos} from './data.js';
+import {
+  showFullScreen
+} from './fullscreen.js';
 
 const fragment = document.createDocumentFragment();
 
@@ -25,8 +26,16 @@ const addPictures = function (picturesArr) {
   }
 
   pictureList.appendChild(fragment);
+
+  const pictures = pictureList.querySelectorAll('.picture__img');
+  for (let i = 0; i < pictures.length; i++) {
+    pictures[i].addEventListener('click', (evt) => {
+      const clone = evt.target.cloneNode();
+      showFullScreen(clone, picturesArr[i]);
+    });
+  }
 };
 
-addPictures(getRandomPhotos());
-
-export {addPictures};
+export {
+  addPictures
+};

@@ -14,6 +14,18 @@ function stringLenght(string, maxlength) {
 }
 stringLenght('Hello', 7);
 
-// console.log(stringLenght('Hello', 7));
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInt};
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+const addBodyModalOpen = () => document.querySelector('body').classList.add('modal-open');
+
+const removeBodyModalOpen = () => document.querySelector('body').classList.remove('modal-open');
+
+export {
+  getRandomInt,
+  isEscapeKey,
+  isEnterKey,
+  addBodyModalOpen,
+  removeBodyModalOpen
+};
