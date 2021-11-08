@@ -1,10 +1,9 @@
 import {
-  getRandomInt,
   isEscapeKey
 } from './utils.js';
 import {
-  getRandomLikes,
-  getRandomComments,
+  // getRandomLikes,
+  // getRandomComments,
   getRandomAvatar,
   getRandomMessage,
   getRandomDescription,
@@ -33,22 +32,23 @@ const createComments = () => {
   const createPictureFragment = document.createDocumentFragment();
 
   for (let i = 0; i < 5; i++) {
-    commentsItemImg.src = `photos/${getRandomInt(1, 25)}.jpg`;
+    commentsItemImg.src = getRandomAvatar();
     commentsItemImg.alt = getRandomName();
     commentsItemText.textContent = getRandomMessage();
-    bigImgDescription.textContent = getRandomDescription();
+    // bigImgDescription.textContent = getRandomDescription();
     createPictureFragment.appendChild(socialCommentsList.cloneNode(true));
     commentsList.appendChild(createPictureFragment);
   }
 };
 
-const showFullScreen = (target) => {
+const showFullScreen = (target, bigPictures) => {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPictureImgContainer.replaceChild(target, bigPictureImgContainer.childNodes[1]);
-  socialCommentCount.classList.add('hidden');
-  bigPictureLikes.textContent = getRandomLikes(15, 200);
-  bigPictureCommentsCount.textContent = getRandomComments(1, 500);
+  socialCommentCount.classList.remove('hidden');
+  bigPictureCommentsCount.classList.remove('hidden');
+  bigPictureLikes.textContent = bigPictures.likes;
+  bigPictureCommentsCount.textContent = bigPictures.comments.length;
   commentsItemImg.src = getRandomAvatar();
   commentsItemText.textContent = getRandomMessage();
   bigImgDescription.textContent = getRandomDescription();

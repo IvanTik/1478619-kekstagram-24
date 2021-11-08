@@ -1,8 +1,9 @@
-/* eslint-disable no-unused-vars */
 import {
   isEscapeKey,
   isEnterKey
 } from './utils.js';
+
+import './editing-photo.js';
 
 const MAX_TAGS = 5;
 const TEXT_AREA_MAX_LENGTH = 140;
@@ -52,10 +53,10 @@ uploadButton.addEventListener('click', (evt) => {
 });
 
 const cheсkHashtags = () => {
-  let arrayHashtag = hashtagText.value.toLowerCase();
+  let neededHashtag = hashtagText.value.toLowerCase();
   const usedHashtag = new Set();
-  arrayHashtag = arrayHashtag.split(' ');
-  const newArrayHashtag = arrayHashtag.filter((element) => element !== '');
+  neededHashtag = neededHashtag.split(' ');
+  const newArrayHashtag = neededHashtag.filter((element) => element !== '');
   if (newArrayHashtag.length > MAX_TAGS) {
     hashtagText.setCustomValidity('не может быть больше 5 хэштэгов');
   } else {

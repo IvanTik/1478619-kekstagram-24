@@ -1,13 +1,17 @@
-import { getRandomInt } from './utils.js';
+import {
+  getRandomInt
+} from './utils.js';
 
-const COMMENT_DESCRIPTIONS = [
+const descriptions = [
   'Весело',
   'Осень',
   'На учебе',
   'скучно',
+  'на отдыхе',
+  'Лучшие кадры',
 ];
 
-const COMMENT_AUTHORS = [
+const names = [
   'Иван',
   'Марк',
   'Евгений',
@@ -17,7 +21,7 @@ const COMMENT_AUTHORS = [
   'Вера',
 ];
 
-const COMMENT_AVATARS = [
+const avatars = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
   'img/avatar-3.svg',
@@ -26,7 +30,7 @@ const COMMENT_AVATARS = [
   'img/avatar-6.svg',
 ];
 
-const COMMENT_SUGGESTIONS = [
+const messages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -37,15 +41,15 @@ const COMMENT_SUGGESTIONS = [
 
 const getArrayPart = (array) => array[getRandomInt(0, array.length - 1)];
 
-const getRandomMessage = () => getArrayPart(COMMENT_SUGGESTIONS);
+const getRandomMessage = () => getArrayPart(messages);
 
-const getRandomAvatar = () => getArrayPart(COMMENT_AVATARS);
+const getRandomAvatar = () => getArrayPart(avatars);
 
-const getRandomName = () => getArrayPart(COMMENT_AUTHORS);
+const getRandomName = () => getArrayPart(names);
 
 const getRandomIndex = () => getRandomInt(1, 25);
 
-const getRandomDescription = () => getArrayPart(COMMENT_DESCRIPTIONS);
+const getRandomDescription = () => getArrayPart(descriptions);
 
 const getRandomLikes = () => getRandomInt(15, 250);
 
@@ -56,7 +60,9 @@ const getRandomComment = () => ({
   name: getRandomName(),
 });
 
-const getRandomComments = () => Array.from({length: getRandomInt(1, 3)}, (value, index) => getRandomComment(index));
+const getRandomComments = () => Array.from({
+  length: getRandomInt(5, 10),
+}, (value, index) => getRandomComment(index));
 
 const getRandomPhoto = () => ({
   id: getRandomIndex(),
@@ -66,6 +72,18 @@ const getRandomPhoto = () => ({
   comments: getRandomComments(),
 });
 
-const getRandomPhotos = () => Array.from({length: getRandomInt(5, 20)}, (value, index) => getRandomPhoto(index));
+const getRandomPhotos = () => Array.from({
+  length: getRandomInt(5, 20),
+}, (value, index) => getRandomPhoto(index));
 
-export {getRandomComment, getRandomPhoto, getRandomPhotos, getRandomName , getRandomLikes, getRandomDescription , getRandomComments, getRandomAvatar, getRandomMessage};
+export {
+  getRandomComment,
+  getRandomPhoto,
+  getRandomPhotos,
+  getRandomName,
+  getRandomLikes,
+  getRandomDescription,
+  getRandomComments,
+  getRandomAvatar,
+  getRandomMessage
+};

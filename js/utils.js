@@ -22,4 +22,10 @@ const addBodyModalOpen = () => document.querySelector('body').classList.add('mod
 
 const removeBodyModalOpen = () => document.querySelector('body').classList.remove('modal-open');
 
-export {getRandomInt, isEscapeKey, isEnterKey, addBodyModalOpen, removeBodyModalOpen};
+export {
+  getRandomInt,
+  isEscapeKey,
+  isEnterKey,
+  addBodyModalOpen,
+  removeBodyModalOpen
+};

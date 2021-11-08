@@ -31,7 +31,7 @@ const addPictures = function (picturesArr) {
 
   pictureList.appendChild(fragment);
 
-  const pictures = pictureList.querySelectorAll('img');
+  const pictures = pictureList.querySelectorAll('.picture__img');
   for (let i = 0; i < pictures.length; i++) {
     pictures[i].addEventListener('click', (evt) => {
       const clone = evt.target.cloneNode();
