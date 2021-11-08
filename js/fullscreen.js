@@ -2,11 +2,8 @@ import {
   isEscapeKey
 } from './utils.js';
 import {
-  // getRandomLikes,
-  // getRandomComments,
   getRandomAvatar,
   getRandomMessage,
-  getRandomDescription,
   getRandomName
 } from './data.js';
 
@@ -49,9 +46,9 @@ const showFullScreen = (target, bigPictures) => {
   bigPictureCommentsCount.classList.remove('hidden');
   bigPictureLikes.textContent = bigPictures.likes;
   bigPictureCommentsCount.textContent = bigPictures.comments.length;
-  commentsItemImg.src = getRandomAvatar();
-  commentsItemText.textContent = getRandomMessage();
-  bigImgDescription.textContent = getRandomDescription();
+  commentsItemImg.src = bigPictures.avatar;
+  commentsItemText.textContent = bigPictures.comments;
+  bigImgDescription.textContent = bigPictures.description;
   clearCommentsList();
   createComments();
 };

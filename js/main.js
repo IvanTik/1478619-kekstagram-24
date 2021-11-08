@@ -7,4 +7,4 @@ import {
 } from './render-picture.js';
 import './form.js';
 
-addPictures(getRandomPhotos);
+addPictures(getRandomPhotos());

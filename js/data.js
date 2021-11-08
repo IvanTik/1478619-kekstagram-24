@@ -81,9 +81,6 @@ export {
   getRandomPhoto,
   getRandomPhotos,
   getRandomName,
-  getRandomLikes,
-  getRandomDescription,
-  getRandomComments,
   getRandomAvatar,
   getRandomMessage
 };

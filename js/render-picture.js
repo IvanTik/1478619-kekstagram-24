@@ -1,7 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import {
-  getRandomPhotos
-} from './data.js';
 import {
   showFullScreen
 } from './fullscreen.js';
@@ -39,8 +35,6 @@ const addPictures = function (picturesArr) {
     });
   }
 };
-
-addPictures(getRandomPhotos());
 
 export {
   addPictures
