@@ -47,7 +47,7 @@ const showFullScreen = (target, bigPictures) => {
   bigPictureLikes.textContent = bigPictures.likes;
   bigPictureCommentsCount.textContent = bigPictures.comments.length;
   commentsItemImg.src = bigPictures.avatar;
-  commentsItemText.textContent = bigPictures.comments;
+  // commentsItemText.textContent = bigPictures.comments;
   bigImgDescription.textContent = bigPictures.description;
   clearCommentsList();
   createComments();
@@ -60,12 +60,14 @@ showMoreCommentsButton.addEventListener('click', () => {
 bigPictureCancel.addEventListener('click', () => {
   body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
+  showMoreCommentsButton.removeEventListener('click', createComments);
 });
 
 document.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     body.classList.remove('modal-open');
     bigPicture.classList.add('hidden');
+    showMoreCommentsButton.removeEventListener('click', createComments);
   }
 });
 

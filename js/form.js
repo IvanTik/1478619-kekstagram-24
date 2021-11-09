@@ -5,6 +5,9 @@ import {
 
 import './editing-photo.js';
 
+import { showAlert } from './utils.js';
+import { sendData } from './api.js';
+
 const MAX_TAGS = 5;
 const TEXT_AREA_MAX_LENGTH = 140;
 const TEXT_AREA_MIN_LENGTH = 0;
@@ -16,6 +19,7 @@ const closeButtonUpload = uploadPopup.querySelector('#upload-cancel');
 const uploadButton = form.querySelector('#upload-file');
 const hashtagText = document.querySelector('.text__hashtags');
 const textArea = document.querySelector('.text__description');
+const imgForm = document.querySelector('.img-upload__form');
 
 body.classList.remove('modal-open');
 
@@ -99,6 +103,18 @@ const cheсkComment = () => {
   textArea.reportValidity();
 };
 
+const setImgFormSubmit = (onSuccess) => {
+  imgForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
+  });
+};
+
 textArea.removeEventListener('input', cheсkComment);
 
 textArea.addEventListener('input', cheсkComment);
@@ -106,3 +122,5 @@ textArea.addEventListener('input', cheсkComment);
 hashtagText.removeEventListener('input', cheсkHashtags);
 
 hashtagText.addEventListener('input', cheсkHashtags);
+
+export {setImgFormSubmit};
