@@ -1,6 +1,6 @@
 import {
   getRandomInt
-} from './utils.js';
+} from './utils/utils.js';
 
 const descriptions = [
   'Весело',
@@ -64,9 +64,9 @@ const getRandomComments = () => Array.from({
   length: getRandomInt(5, 10),
 }, (value, index) => getRandomComment(index));
 
-const getRandomPhoto = () => ({
-  id: getRandomIndex(),
-  url: `photos/${getRandomInt(1, 25)}.jpg`,
+const getRandomPhoto = (index) => ({
+  id: index,
+  url: `photos/${(index)}.jpg`,
   description: getRandomDescription(),
   likes: getRandomLikes(),
   comments: getRandomComments(),
@@ -74,7 +74,7 @@ const getRandomPhoto = () => ({
 
 const getRandomPhotos = () => Array.from({
   length: getRandomInt(5, 20),
-}, (value, index) => getRandomPhoto(index));
+}, (value, index) => getRandomPhoto(index + 1));
 
 export {
   getRandomComment,

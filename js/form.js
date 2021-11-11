@@ -1,60 +1,37 @@
 import {
-  isEscapeKey,
-  isEnterKey
-} from './utils.js';
-
-import './editing-photo.js';
-
-import { showAlert } from './utils.js';
-import { sendData } from './api.js';
+  isEscapeKey
+} from './utils/utils.js';
+import {
+  undoDefaultAction
+} from './utils/undo-default-action.js';
+import {
+  scale,
+  scaleCancel,
+  onFiltersChange,
+  toUnsetEffect
+} from './editing-photo.js';
+import {
+  formError,
+  formSuccess
+} from './info-messages.js';
+import {
+  sendData
+} from './api.js';
 
 const MAX_TAGS = 5;
 const TEXT_AREA_MAX_LENGTH = 140;
 const TEXT_AREA_MIN_LENGTH = 0;
 
 const body = document.querySelector('body');
-const form = document.querySelector('#upload-select-image');
-const uploadPopup = form.querySelector('.img-upload__overlay');
-const closeButtonUpload = uploadPopup.querySelector('#upload-cancel');
-const uploadButton = form.querySelector('#upload-file');
+const pictureUploadForm = body.querySelector('.img-upload__form');
+const effectsList = pictureUploadForm.querySelector('.effects__list');
+const uploadUserPictureInput = pictureUploadForm.querySelector('.img-upload__input');
+const pictureEditModal = pictureUploadForm.querySelector('.img-upload__overlay');
+const pictureEditFormCancel = pictureEditModal.querySelector('.img-upload__cancel');
+const commentField = document.querySelector('.text__description');
 const hashtagText = document.querySelector('.text__hashtags');
-const textArea = document.querySelector('.text__description');
-const imgForm = document.querySelector('.img-upload__form');
 
 body.classList.remove('modal-open');
-
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    // eslint-disable-next-line no-use-before-define
-    closeUploadPopup();
-  }
-};
-
-const onPopupEnterKeydown = (evt) => {
-  if (isEnterKey(evt)) {
-    evt.preventDefault();
-    // eslint-disable-next-line no-use-before-define
-    closeUploadPopup();
-  }
-};
-
-const closeUploadPopup = function () {
-  uploadPopup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscKeydown);
-};
-
-closeButtonUpload.addEventListener('click', () => {
-  closeUploadPopup(onPopupEnterKeydown);
-  body.classList.remove('modal-open');
-});
-
-uploadButton.addEventListener('click', (evt) => {
-  uploadPopup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
-  body.classList.add('modal-open');
-  evt.preventDefault();
-});
 
 const cheсkHashtags = () => {
   let neededHashtag = hashtagText.value.toLowerCase();
@@ -91,36 +68,76 @@ const cheсkHashtags = () => {
   hashtagText.reportValidity();
 };
 
-const cheсkComment = () => {
-  const commentLength = textArea.value.length;
-  if (commentLength < TEXT_AREA_MIN_LENGTH) {
-    textArea.setCustomValidity(`Ещё ${  TEXT_AREA_MIN_LENGTH - commentLength}симв.`);
-  } else if (commentLength > TEXT_AREA_MAX_LENGTH) {
-    textArea.setCustomValidity(`Удалите лишние ${  commentLength - TEXT_AREA_MAX_LENGTH} симв.`);
-  } else {
-    textArea.setCustomValidity('');
+const onModalEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeModal();
   }
-  textArea.reportValidity();
 };
 
-const setImgFormSubmit = (onSuccess) => {
-  imgForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
 
+function closeModal() {
+  pictureEditModal.classList.add('hidden');
+  body.classList.remove('modal-open');
+  pictureUploadForm.reset();
+  scaleCancel();
+  hashtagText.removeEventListener('input', cheсkHashtags);
+  effectsList.removeEventListener('change', onFiltersChange);
+  commentField.removeEventListener('keydown', undoDefaultAction);
+  hashtagText.removeEventListener('keydown', undoDefaultAction);
+  document.removeEventListener('keydown', onModalEscKeydown);
+}
+
+function openModal() {
+  pictureEditModal.classList.remove('hidden');
+  body.classList.add('modal-open');
+  toUnsetEffect();
+  scale();
+  effectsList.addEventListener('change', onFiltersChange);
+  hashtagText.addEventListener('input', cheсkHashtags);
+  commentField.addEventListener('keydown', undoDefaultAction);
+  hashtagText.addEventListener('keydown', undoDefaultAction);
+  document.addEventListener('keydown', onModalEscKeydown);
+}
+
+pictureEditFormCancel.addEventListener('click', () => {
+  closeModal();
+});
+
+uploadUserPictureInput.addEventListener('change', () => {
+  openModal();
+});
+
+const setUserFormSubmit = (onSuccess) => {
+  pictureUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
     sendData(
       () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => formSuccess(),
+      () => formError(),
       new FormData(evt.target),
     );
   });
 };
 
-textArea.removeEventListener('input', cheсkComment);
+const cheсkComment = () => {
+  const commentLength = commentField.value.length;
+  if (commentLength < TEXT_AREA_MIN_LENGTH) {
+    commentField.setCustomValidity(`Ещё ${  TEXT_AREA_MIN_LENGTH - commentLength}симв.`);
+  } else if (commentLength > TEXT_AREA_MAX_LENGTH) {
+    commentField.setCustomValidity(`Удалите лишние ${  commentLength - TEXT_AREA_MAX_LENGTH} симв.`);
+  } else {
+    commentField.setCustomValidity('');
+  }
+};
 
-textArea.addEventListener('input', cheсkComment);
+commentField.removeEventListener('input', cheсkComment);
 
-hashtagText.removeEventListener('input', cheсkHashtags);
+commentField.addEventListener('input', cheсkComment);
 
-hashtagText.addEventListener('input', cheсkHashtags);
 
-export {setImgFormSubmit};
+export {
+  setUserFormSubmit,
+  openModal,
+  closeModal
+};

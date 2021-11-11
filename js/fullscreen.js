@@ -1,6 +1,6 @@
 import {
   isEscapeKey
-} from './utils.js';
+} from './utils/utils.js';
 import {
   getRandomAvatar,
   getRandomMessage,

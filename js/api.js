@@ -1,18 +1,24 @@
-import { showAlert, formSuccess, formError } from './utils.js';
+const getData = (onSuccess, getFilters, onClick, onError) => {
+  fetch('https://24.javascript.pages.academy/kekstagram/data')
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      }
 
-const getData = async () => {
-  try {
-    const response = await fetch('https://24.javascript.pages.academy/kekstagram/data');
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    showAlert('Не удалось получить изображения. Обновите страницу');
-  }
-
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then((response) => response.json())
+    .then((pictures) => {
+      onSuccess(pictures);
+      getFilters(pictures);
+      onClick(pictures);
+    })
+    .catch((err) => {
+      onError(err);
+    });
 };
 
-const sendData = (onSuccess, onFail, body) =>{
+const sendData = (onSuccess, messageOnSuccess, messageOnFail, body) => {
   fetch(
     'https://24.javascript.pages.academy/kekstagram',
     {
@@ -23,14 +29,13 @@ const sendData = (onSuccess, onFail, body) =>{
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        formSuccess();
+        messageOnSuccess();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
-        formError();
+        messageOnFail();
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      messageOnFail();
     });
 };
 
