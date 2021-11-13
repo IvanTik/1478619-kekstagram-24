@@ -39,6 +39,5 @@ const addPictures = function (picturesArr) {
 };
 
 export {
-  addPictures,
-  renderPicture
+  addPictures
 };

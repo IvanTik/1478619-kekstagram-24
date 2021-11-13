@@ -6,13 +6,15 @@ import {
 } from './utils/undo-default-action.js';
 import {
   scale,
-  scaleCancel,
+  cancelScale,
   onFiltersChange,
   toUnsetEffect
 } from './editing-photo.js';
 import {
-  formError,
-  formSuccess
+  showErrorMessage,
+  showSuccessMessage,
+  showLoadingProcessMessage,
+  removeLoadingProcessMessage
 } from './info-messages.js';
 import {
   sendData
@@ -80,7 +82,7 @@ function closeModal() {
   pictureEditModal.classList.add('hidden');
   body.classList.remove('modal-open');
   pictureUploadForm.reset();
-  scaleCancel();
+  cancelScale();
   hashtagText.removeEventListener('input', cheсkHashtags);
   effectsList.removeEventListener('change', onFiltersChange);
   commentField.removeEventListener('keydown', undoDefaultAction);
@@ -111,10 +113,12 @@ uploadUserPictureInput.addEventListener('change', () => {
 const setUserFormSubmit = (onSuccess) => {
   pictureUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    showLoadingProcessMessage();
     sendData(
       () => onSuccess(),
-      () => formSuccess(),
-      () => formError(),
+      () => showSuccessMessage(),
+      () => showErrorMessage(),
+      () => removeLoadingProcessMessage(),
       new FormData(evt.target),
     );
   });

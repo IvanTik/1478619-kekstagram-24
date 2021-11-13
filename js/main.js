@@ -7,9 +7,9 @@ import {
 import {setUserFormSubmit, closeModal} from './form.js';
 import {getData} from './api.js';
 import {getFiltration} from './get-filtration.js';
-// import {showAlert} from './info-messages.js';
+import {showUnloadMessage} from './info-messages.js';
 // import {showFullScreen} from './fullscreen.js';
 
-getData(addPictures, getFiltration);
+getData(addPictures, getFiltration, showUnloadMessage);
 
 setUserFormSubmit(closeModal);

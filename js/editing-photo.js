@@ -35,9 +35,11 @@ const scale = () => {
   buttonMinus.addEventListener('click', onSmallerControlClick);
 };
 
-const scaleCancel = () => {
+const cancelScale = () => {
   buttonPlus.removeEventListener('click', onBiggerControlClick);
   buttonMinus.removeEventListener('click', onSmallerControlClick);
+  previewImg.style.transform = 'scale(1)';
+  value = `${MAX_VALUE}%`;
 };
 
 const FILTERS_CONFIG = {
@@ -153,23 +155,15 @@ const onFiltersChange = (evt) => {
       sliderElementBlock.classList.add('hidden');
       bigPictureImage.style.filter = 'none';
       valueElement.value = 'none';
-    } else if (evt.target.value === 'chrome') {
-      toApplyFilter(FILTERS_CONFIG.chrome);
-    } else if (evt.target.value === 'sepia') {
-      toApplyFilter(FILTERS_CONFIG.sepia);
-    } else if (evt.target.value === 'marvin') {
-      toApplyFilter(FILTERS_CONFIG.marvin);
-    } else if (evt.target.value === 'phobos') {
-      toApplyFilter(FILTERS_CONFIG.phobos);
-    } else if (evt.target.value === 'heat') {
-      toApplyFilter(FILTERS_CONFIG.heat);
+    } else if (evt) {
+      toApplyFilter(FILTERS_CONFIG[evt.target.value]);
     }
   }
 };
 
 export {
   scale,
-  scaleCancel,
+  cancelScale,
   onFiltersChange,
   toUnsetEffect
 };
