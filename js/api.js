@@ -1,6 +1,6 @@
 const SERVER_URL = 'https://24.javascript.pages.academy/kekstagram/data';
 
-const getData = (onSuccess, getFilters, onClick, onError) => {
+const getData = (onSuccess, getFilters, onError) => {
   fetch(SERVER_URL)
     .then((response) => {
       if (response.ok) {
@@ -12,7 +12,6 @@ const getData = (onSuccess, getFilters, onClick, onError) => {
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
-      onClick(pictures);
       getFilters(pictures);
     })
     .catch((err) => {

@@ -2,6 +2,7 @@ import {
   isEscapeKey
 } from './utils/utils.js';
 
+const ALERT_SHOW_TIME = 5000;
 const loadingProcessMessageTemplate = document.querySelector('#messages').content.querySelector('.img-upload__message--loading');
 const loadingProcessMessageContainer = loadingProcessMessageTemplate.cloneNode(true);
 const successContainerTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -11,8 +12,6 @@ const alertContainer = document.createElement('div');
 const errorContainerTemplate = document.querySelector('#error').content.querySelector('.error');
 const errorContainer = errorContainerTemplate.cloneNode(true);
 const errorCloseButton = errorContainer.querySelector('.error__button');
-
-const ALERT_SHOW_TIME = 5000;
 
 const showUnloadMessage = (message) => {
   alertContainer.style.zIndex = 100;

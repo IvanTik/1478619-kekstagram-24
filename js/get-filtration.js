@@ -1,7 +1,4 @@
 import {
-  showFullScreen
-} from './fullscreen.js';
-import {
   addPictures
 } from './render-picture.js';
 import {
@@ -11,10 +8,34 @@ import {
   debounce
 } from './utils/debounce.js';
 
-const filtersBlock = document.querySelector('.img-filters');
-const filtersButtons = filtersBlock.querySelectorAll('.img-filters__button');
 const RANDOM_PHOTO_COUNT = 10;
 const RERENDER_DELAY = 500;
+
+const filtersBlock = document.querySelector('.img-filters');
+const filtersButtons = filtersBlock.querySelectorAll('.img-filters__button');
+
+const createRandomIndex = (pictures) => {
+  let previousPictures = [];
+  let itemIndex = getRandomPositiveInteger(0, pictures.length - 1);
+  while (previousPictures.includes(itemIndex)) {
+    itemIndex = getRandomPositiveInteger(0, pictures.length - 1);
+  }
+  if (previousPictures.length < RANDOM_PHOTO_COUNT) {
+    previousPictures.push(itemIndex);
+  } else {
+    previousPictures = [];
+    previousPictures.push(itemIndex);
+  }
+  return itemIndex;
+};
+
+const getDefaultPictures = (pictures) => Array.from(pictures.slice());
+
+const getRandomPictures = (pictures) => Array.from({
+  length: RANDOM_PHOTO_COUNT,
+}, () => pictures[createRandomIndex(pictures)]);
+
+const getSortedPictures = (pictures) => Array.from(pictures.slice().sort((commentA, commentB) => commentB.comments.length - commentA.comments.length));
 
 const removeClass = () => {
   filtersButtons.forEach((button) => {
@@ -22,35 +43,16 @@ const removeClass = () => {
   });
 };
 
+const getPhotos = () => document.querySelectorAll('.picture');
+
 const removePictures = () => {
-  const photos = document.querySelectorAll('.picture');
-  photos.forEach((photo) => photo.remove());
+  getPhotos().forEach((photo) => photo.remove());
 };
 
-const renderFilter = (array) => {
+const renderFilter = (pictures) => {
   removePictures();
-  addPictures(array);
-  showFullScreen(array);
+  addPictures(pictures);
 };
-
-const createRandomIndex = () => {
-  let previousArray = [];
-  return function (array) {
-    let itemIndex = getRandomPositiveInteger(0, array.length - 1);
-    while (previousArray.includes(itemIndex)) {
-      itemIndex = getRandomPositiveInteger(0, array.length - 1);
-    }
-    if (previousArray.length < RANDOM_PHOTO_COUNT) {
-      previousArray.push(itemIndex);
-    } else {
-      previousArray = [];
-      previousArray.push(itemIndex);
-    }
-    return itemIndex;
-  };
-};
-const getRandomIndex = createRandomIndex();
-
 
 const getFiltration = (pictures) => {
   filtersBlock.classList.remove('img-filters--inactive');
@@ -60,16 +62,11 @@ const getFiltration = (pictures) => {
         removeClass();
         evt.target.classList.add('img-filters__button--active');
         if (evt.target.matches('#filter-default')) {
-          const arrayToDefault = Array.from(pictures.slice());
-          renderFilter(arrayToDefault);
+          renderFilter(getDefaultPictures(pictures));
         } else if (evt.target.matches('#filter-random')) {
-          const randomArray = Array.from({
-            length: RANDOM_PHOTO_COUNT,
-          }, () => pictures[getRandomIndex(pictures)]);
-          renderFilter(randomArray);
+          renderFilter(getRandomPictures(pictures));
         } else if (evt.target.matches('#filter-discussed')) {
-          const arrayToSort = Array.from(pictures.slice().sort((commentA, commentB) => commentB.comments.length - commentA.comments.length));
-          renderFilter(arrayToSort);
+          renderFilter(getSortedPictures(pictures));
         }
       },
       RERENDER_DELAY),

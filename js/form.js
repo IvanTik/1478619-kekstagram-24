@@ -115,10 +115,10 @@ const setUserFormSubmit = (onSuccess) => {
     evt.preventDefault();
     showLoadingProcessMessage();
     sendData(
-      () => onSuccess(),
-      () => showSuccessMessage(),
-      () => showErrorMessage(),
-      () => removeLoadingProcessMessage(),
+      onSuccess,
+      showSuccessMessage,
+      showErrorMessage,
+      removeLoadingProcessMessage,
       new FormData(evt.target),
     );
   });
@@ -138,7 +138,6 @@ const cheсkComment = () => {
 commentField.removeEventListener('input', cheсkComment);
 
 commentField.addEventListener('input', cheсkComment);
-
 
 export {
   setUserFormSubmit,
