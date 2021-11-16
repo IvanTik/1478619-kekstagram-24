@@ -14,25 +14,11 @@ const RERENDER_DELAY = 500;
 const filtersBlock = document.querySelector('.img-filters');
 const filtersButtons = filtersBlock.querySelectorAll('.img-filters__button');
 
-const createRandomIndex = (pictures) => {
-  let previousPictures = [];
-  while (previousPictures.includes()) {
-    getRandomPositiveInteger(0, pictures.length - 1);
-  }
-  if (previousPictures.length < RANDOM_PHOTO_COUNT) {
-    previousPictures.push(getRandomPositiveInteger(0, pictures.length - 1));
-  } else {
-    previousPictures = [];
-    previousPictures.push(getRandomPositiveInteger(0, pictures.length - 1));
-  }
-  return getRandomPositiveInteger(0, pictures.length - 1);
-};
-
 const getDefaultPictures = (pictures) => pictures.slice();
 
 const getRandomPictures = (pictures) => Array.from({
   length: RANDOM_PHOTO_COUNT,
-}, () => pictures[createRandomIndex(pictures)]);
+}, () => pictures[getRandomPositiveInteger(0, pictures.length - 1)]);
 
 const getSortedPictures = (pictures) => pictures.slice().sort((commentA, commentB) => commentB.comments.length - commentA.comments.length);
 
