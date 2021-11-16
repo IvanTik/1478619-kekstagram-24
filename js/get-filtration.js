@@ -16,26 +16,25 @@ const filtersButtons = filtersBlock.querySelectorAll('.img-filters__button');
 
 const createRandomIndex = (pictures) => {
   let previousPictures = [];
-  let itemIndex = getRandomPositiveInteger(0, pictures.length - 1);
-  while (previousPictures.includes(itemIndex)) {
-    itemIndex = getRandomPositiveInteger(0, pictures.length - 1);
+  while (previousPictures.includes()) {
+    getRandomPositiveInteger(0, pictures.length - 1);
   }
   if (previousPictures.length < RANDOM_PHOTO_COUNT) {
-    previousPictures.push(itemIndex);
+    previousPictures.push(getRandomPositiveInteger(0, pictures.length - 1));
   } else {
     previousPictures = [];
-    previousPictures.push(itemIndex);
+    previousPictures.push(getRandomPositiveInteger(0, pictures.length - 1));
   }
-  return itemIndex;
+  return getRandomPositiveInteger(0, pictures.length - 1);
 };
 
-const getDefaultPictures = (pictures) => Array.from(pictures.slice());
+const getDefaultPictures = (pictures) => pictures.slice();
 
 const getRandomPictures = (pictures) => Array.from({
   length: RANDOM_PHOTO_COUNT,
 }, () => pictures[createRandomIndex(pictures)]);
 
-const getSortedPictures = (pictures) => Array.from(pictures.slice().sort((commentA, commentB) => commentB.comments.length - commentA.comments.length));
+const getSortedPictures = (pictures) => pictures.slice().sort((commentA, commentB) => commentB.comments.length - commentA.comments.length);
 
 const removeClass = () => {
   filtersButtons.forEach((button) => {

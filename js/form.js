@@ -110,15 +110,23 @@ uploadUserPictureInput.addEventListener('change', () => {
   openModal();
 });
 
-const setUserFormSubmit = (onSuccess) => {
+const submitOnSuccess = () =>{
+  showSuccessMessage(),
+  removeLoadingProcessMessage(),
+  closeModal();
+};
+
+const submitOnError = () =>{
+  showErrorMessage;
+};
+
+const setUserFormSubmit = () => {
   pictureUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     showLoadingProcessMessage();
     sendData(
-      onSuccess,
-      showSuccessMessage,
-      showErrorMessage,
-      removeLoadingProcessMessage,
+      submitOnSuccess,
+      submitOnError,
       new FormData(evt.target),
     );
   });

@@ -1,13 +1,13 @@
-const SERVER_URL = 'https://24.javascript.pages.academy/kekstagram/data';
+const SERVER_URL = 'https://24.javascript.pages.academy/kekstagram';
+const SERVER_URL_DATA = 'https://24.javascript.pages.academy/kekstagram/data';
 
 const getData = (onSuccess, getFilters, onError) => {
-  fetch(SERVER_URL)
+  fetch(SERVER_URL_DATA)
     .then((response) => {
       if (response.ok) {
         return response;
-      } else {
-        new Error(`${response.status} ${response.statusText}`);
       }
+      throw new Error(`${response.status} ${response.statusText}`);
     })
     .then((response) => response.json())
     .then((pictures) => {
@@ -19,9 +19,9 @@ const getData = (onSuccess, getFilters, onError) => {
     });
 };
 
-const sendData = (onSuccess, messageOnSuccess, messageOnFail, removeMessage, body) => {
+const sendData = (onSuccess, onError, body) => {
   fetch(
-    'https://24.javascript.pages.academy/kekstagram', {
+    SERVER_URL, {
       method: 'POST',
       body,
     },
@@ -29,15 +29,14 @@ const sendData = (onSuccess, messageOnSuccess, messageOnFail, removeMessage, bod
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        messageOnSuccess();
       } else {
-        messageOnFail();
+        onError();
       }
     })
     .catch(() => {
-      messageOnFail();
+      onError();
     })
-    .finally(() => removeMessage());
+    .finally(() => onError());
 };
 
 export {
