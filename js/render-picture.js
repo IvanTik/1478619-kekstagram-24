@@ -13,6 +13,8 @@ const pictureList = document.querySelector('.pictures');
 const renderPicture = function (picture) {
   const pictureItem = similarPicture.cloneNode(true);
 
+  pictureItem.querySelector('.picture__img').id = picture.id;
+  pictureItem.querySelector('.picture__img').alt = picture.description;
   pictureItem.querySelector('.picture__img').src = picture.url;
   pictureItem.querySelector('.picture__likes').textContent = picture.likes;
   pictureItem.querySelector('.picture__comments').textContent = picture.comments.length;

@@ -1,10 +1,20 @@
-/* eslint-disable no-console */
-import {
-  getRandomPhotos
-} from './data.js';
 import {
   addPictures
 } from './render-picture.js';
-import './form.js';
+import {
+  setUserFormSubmit,
+  closeModal
+} from './form.js';
+import {
+  getData
+} from './api.js';
+import {
+  getFiltration
+} from './get-filtration.js';
+import {
+  showUnloadMessage
+} from './info-messages.js';
 
-addPictures(getRandomPhotos());
+getData(addPictures, getFiltration, showUnloadMessage);
+
+setUserFormSubmit(closeModal);
