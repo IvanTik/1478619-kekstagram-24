@@ -3,6 +3,7 @@ import {
 } from './utils/utils.js';
 
 const ALERT_SHOW_TIME = 5000;
+const LOCATION_INDEX = 100;
 const loadingProcessMessageTemplate = document.querySelector('#messages').content.querySelector('.img-upload__message--loading');
 const loadingProcessMessageContainer = loadingProcessMessageTemplate.cloneNode(true);
 const successContainerTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -14,7 +15,7 @@ const errorContainer = errorContainerTemplate.cloneNode(true);
 const errorCloseButton = errorContainer.querySelector('.error__button');
 
 const showUnloadMessage = (message) => {
-  alertContainer.style.zIndex = 100;
+  alertContainer.style.zIndex = LOCATION_INDEX;
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = 0;
   alertContainer.style.top = 0;
@@ -33,7 +34,7 @@ const showUnloadMessage = (message) => {
 };
 
 const showErrorMessage = () => {
-  errorContainer.style.zIndex = 100;
+  errorContainer.style.zIndex = LOCATION_INDEX;
   document.body.append(errorContainer);
 
   const onPopupEscKeydown = (evt) => {
@@ -67,7 +68,7 @@ const showErrorMessage = () => {
 };
 
 const showSuccessMessage = () => {
-  successContainer.style.zIndex = 100;
+  successContainer.style.zIndex = LOCATION_INDEX;
   document.body.append(successContainer);
 
   const onPopupEscKeydown = (evt) => {
@@ -101,7 +102,7 @@ const showSuccessMessage = () => {
 };
 
 const showLoadingProcessMessage = () => {
-  loadingProcessMessageContainer.style.zIndex = 100;
+  loadingProcessMessageContainer.style.zIndex = LOCATION_INDEX;
   document.body.append(loadingProcessMessageContainer);
 };
 

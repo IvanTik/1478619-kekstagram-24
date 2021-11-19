@@ -39,24 +39,23 @@ const renderFilter = (pictures) => {
   addPictures(pictures);
 };
 
+const filtersForm = document.querySelector('.img-filters__form');
 const getFiltration = (pictures) => {
   filtersBlock.classList.remove('img-filters--inactive');
-  filtersButtons.forEach((button) => {
-    button.addEventListener('click',
-      debounce((evt) => {
-        removeClass();
-        evt.target.classList.add('img-filters__button--active');
-        if (evt.target.matches('#filter-default')) {
-          renderFilter(getDefaultPictures(pictures));
-        } else if (evt.target.matches('#filter-random')) {
-          renderFilter(getRandomPictures(pictures));
-        } else if (evt.target.matches('#filter-discussed')) {
-          renderFilter(getSortedPictures(pictures));
-        }
-      },
-      RERENDER_DELAY),
-    );
-  });
+  filtersForm.addEventListener('click',
+    debounce((evt) => {
+      removeClass();
+      evt.target.classList.add('img-filters__button--active');
+      if (evt.target.matches('#filter-default')) {
+        renderFilter(getDefaultPictures(pictures));
+      } else if (evt.target.matches('#filter-random')) {
+        renderFilter(getRandomPictures(pictures));
+      } else if (evt.target.matches('#filter-discussed')) {
+        renderFilter(getSortedPictures(pictures));
+      }
+    },
+    RERENDER_DELAY),
+  );
 };
 
 export {
